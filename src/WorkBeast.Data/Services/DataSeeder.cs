@@ -56,10 +56,21 @@ public class DataSeeder : IDataSeeder
             new() { Name = "Lats", Description = "Latissimus dorsi muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
             new() { Name = "Traps", Description = "Trapezius muscles (upper, middle, lower)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
             
-            // Arms
-            new() { Name = "Biceps", Description = "Biceps brachii - front upper arm", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
-            new() { Name = "Triceps", Description = "Triceps brachii - back upper arm", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
-            new() { Name = "Forearms", Description = "Wrist flexors and extensors", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            // Arms - Granular
+            // Biceps (2 heads)
+            new() { Name = "Biceps Long Head", Description = "Outer bicep head (contributes to peak)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Biceps Short Head", Description = "Inner bicep head (contributes to width)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Brachialis", Description = "Muscle under biceps (contributes to arm thickness)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            
+            // Triceps (3 heads)
+            new() { Name = "Triceps Long Head", Description = "Inner/medial tricep head (largest head)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Triceps Lateral Head", Description = "Outer tricep head (horseshoe shape)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Triceps Medial Head", Description = "Deep tricep head (stabilizer)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            
+            // Forearms
+            new() { Name = "Forearm Flexors", Description = "Wrist and finger flexors (palm side)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Forearm Extensors", Description = "Wrist and finger extensors (back side)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Brachioradialis", Description = "Upper forearm muscle (elbow flexor)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
             
             // Core - Granular
             new() { Name = "Upper Abs", Description = "Upper rectus abdominis", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
@@ -104,9 +115,15 @@ public class DataSeeder : IDataSeeder
         var traps = bodyParts["Traps"];
         
         // Arms
-        var biceps = bodyParts["Biceps"];
-        var triceps = bodyParts["Triceps"];
-        var forearms = bodyParts["Forearms"];
+        var bicepsLongHead = bodyParts["Biceps Long Head"];
+        var bicepsShortHead = bodyParts["Biceps Short Head"];
+        var brachialis = bodyParts["Brachialis"];
+        var tricepsLongHead = bodyParts["Triceps Long Head"];
+        var tricepsLateralHead = bodyParts["Triceps Lateral Head"];
+        var tricepsMedialHead = bodyParts["Triceps Medial Head"];
+        var forearmFlexors = bodyParts["Forearm Flexors"];
+        var forearmExtensors = bodyParts["Forearm Extensors"];
+        var brachioradialis = bodyParts["Brachioradialis"];
         
         // Core
         var upperAbs = bodyParts["Upper Abs"];
@@ -133,7 +150,7 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { midChest, upperChest, frontDelts, triceps }
+                TargetedBodyParts = new List<BodyPart> { midChest, upperChest, frontDelts, tricepsLateralHead, tricepsMedialHead }
             },
             new() 
             { 
@@ -142,7 +159,7 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { upperChest, frontDelts, triceps }
+                TargetedBodyParts = new List<BodyPart> { upperChest, frontDelts, tricepsLateralHead, tricepsMedialHead }
             },
             new() 
             { 
@@ -151,7 +168,7 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { lowerChest, triceps }
+                TargetedBodyParts = new List<BodyPart> { lowerChest, tricepsLateralHead, tricepsMedialHead }
             },
             new() 
             { 
@@ -178,7 +195,7 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { midChest, frontDelts, triceps, serratus }
+                TargetedBodyParts = new List<BodyPart> { midChest, frontDelts, tricepsLateralHead, tricepsMedialHead, serratus }
             },
 
             // Back Exercises
@@ -189,7 +206,7 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { lowerBack, midBack, traps, hamstrings, glutes, forearms }
+                TargetedBodyParts = new List<BodyPart> { lowerBack, midBack, traps, hamstrings, glutes, forearmFlexors, forearmExtensors }
             },
             new() 
             { 
@@ -198,7 +215,7 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { lats, midBack, biceps, forearms }
+                TargetedBodyParts = new List<BodyPart> { lats, midBack, bicepsLongHead, bicepsShortHead, forearmFlexors }
             },
             new() 
             { 
@@ -207,7 +224,7 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { midBack, lats, traps, rearDelts, biceps }
+                TargetedBodyParts = new List<BodyPart> { midBack, lats, traps, rearDelts, bicepsLongHead, bicepsShortHead }
             },
             new() 
             { 
@@ -216,7 +233,7 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { lats, midBack, biceps }
+                TargetedBodyParts = new List<BodyPart> { lats, midBack, bicepsLongHead, bicepsShortHead }
             },
             new() 
             { 
@@ -236,7 +253,7 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { frontDelts, midDelts, triceps, upperChest }
+                TargetedBodyParts = new List<BodyPart> { frontDelts, midDelts, tricepsLateralHead, tricepsMedialHead, upperChest }
             },
             new() 
             { 
@@ -245,7 +262,7 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { frontDelts, midDelts, triceps }
+                TargetedBodyParts = new List<BodyPart> { frontDelts, midDelts, tricepsLateralHead, tricepsMedialHead }
             },
             new() 
             { 
@@ -275,51 +292,154 @@ public class DataSeeder : IDataSeeder
                 TargetedBodyParts = new List<BodyPart> { rearDelts, upperBack }
             },
 
-            // Arm Exercises
+            // Arm Exercises - Biceps
             new() 
             { 
                 Name = "Barbell Curl", 
-                Description = "Standing barbell bicep curl",
+                Description = "Standing barbell bicep curl - emphasizes both heads",
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { biceps, forearms }
+                TargetedBodyParts = new List<BodyPart> { bicepsLongHead, bicepsShortHead, forearmFlexors }
+            },
+            new() 
+            { 
+                Name = "Incline Dumbbell Curl", 
+                Description = "Incline bench dumbbell curl - emphasizes long head (peak)",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { bicepsLongHead, bicepsShortHead, forearmFlexors }
+            },
+            new() 
+            { 
+                Name = "Preacher Curl", 
+                Description = "Preacher curl - emphasizes short head (width) and brachialis",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { bicepsShortHead, brachialis, forearmFlexors }
             },
             new() 
             { 
                 Name = "Hammer Curl", 
-                Description = "Dumbbell hammer curl for biceps and forearms",
+                Description = "Dumbbell hammer curl - emphasizes brachialis and brachioradialis",
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { biceps, forearms }
+                TargetedBodyParts = new List<BodyPart> { brachialis, brachioradialis, bicepsLongHead, forearmFlexors }
+            },
+            new() 
+            { 
+                Name = "Concentration Curl", 
+                Description = "Seated concentration curl - peak contraction for bicep heads",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { bicepsShortHead, bicepsLongHead }
+            },
+            new() 
+            { 
+                Name = "Cable Curl", 
+                Description = "Cable bicep curl - constant tension on both heads",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { bicepsLongHead, bicepsShortHead, forearmFlexors }
+            },
+
+            // Arm Exercises - Triceps
+            new() 
+            { 
+                Name = "Close-Grip Bench Press", 
+                Description = "Close-grip bench press - compound movement for all tricep heads",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { tricepsLateralHead, tricepsMedialHead, tricepsLongHead, midChest }
             },
             new() 
             { 
                 Name = "Tricep Dips", 
-                Description = "Bodyweight or weighted tricep dips",
+                Description = "Bodyweight or weighted tricep dips - emphasizes lateral and long head",
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { triceps, lowerChest }
+                TargetedBodyParts = new List<BodyPart> { tricepsLateralHead, tricepsLongHead, tricepsMedialHead, lowerChest }
+            },
+            new() 
+            { 
+                Name = "Overhead Tricep Extension", 
+                Description = "Overhead extension - emphasizes long head (inner tricep)",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { tricepsLongHead, tricepsLateralHead, tricepsMedialHead }
             },
             new() 
             { 
                 Name = "Skull Crushers", 
-                Description = "Lying tricep extension (skull crushers)",
+                Description = "Lying tricep extension - targets all three heads with emphasis on long head",
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { triceps }
+                TargetedBodyParts = new List<BodyPart> { tricepsLongHead, tricepsLateralHead, tricepsMedialHead }
             },
             new() 
             { 
                 Name = "Cable Tricep Pushdown", 
-                Description = "Cable tricep pushdown",
+                Description = "Cable pushdown - emphasizes lateral head (horseshoe)",
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { triceps }
+                TargetedBodyParts = new List<BodyPart> { tricepsLateralHead, tricepsMedialHead }
+            },
+            new() 
+            { 
+                Name = "Diamond Push-ups", 
+                Description = "Close-hand push-ups - bodyweight tricep builder",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { tricepsLateralHead, tricepsMedialHead, tricepsLongHead, midChest }
+            },
+            new() 
+            { 
+                Name = "Tricep Kickback", 
+                Description = "Dumbbell tricep kickback - isolation for lateral head",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { tricepsLateralHead, tricepsLongHead }
+            },
+
+            // Arm Exercises - Forearms
+            new() 
+            { 
+                Name = "Wrist Curl", 
+                Description = "Seated wrist curl - targets forearm flexors",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { forearmFlexors }
+            },
+            new() 
+            { 
+                Name = "Reverse Wrist Curl", 
+                Description = "Reverse wrist curl - targets forearm extensors",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { forearmExtensors, brachioradialis }
+            },
+            new() 
+            { 
+                Name = "Farmer's Walk", 
+                Description = "Heavy carry for grip strength and forearm development",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { forearmFlexors, forearmExtensors, traps, upperBack }
             },
 
             // Leg Exercises
@@ -441,6 +561,143 @@ public class DataSeeder : IDataSeeder
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 TargetedBodyParts = new List<BodyPart> { lowerAbs, hipFlexors, serratus }
+            },
+
+            // Full Body / Compound Exercises
+            new() 
+            { 
+                Name = "Burpees", 
+                Description = "Full body explosive movement - cardio and strength",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { quadriceps, glutes, midChest, tricepsLateralHead, upperAbs, lowerAbs }
+            },
+            new() 
+            { 
+                Name = "Thrusters", 
+                Description = "Front squat to overhead press - full body power",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { quadriceps, glutes, frontDelts, midDelts, tricepsLateralHead, upperAbs }
+            },
+            new() 
+            { 
+                Name = "Clean and Press", 
+                Description = "Olympic lift variation - explosive full body power",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { traps, lowerBack, hamstrings, glutes, frontDelts, midDelts, tricepsLateralHead, forearmFlexors }
+            },
+            new() 
+            { 
+                Name = "Man Makers", 
+                Description = "Dumbbell burpee + renegade row + squat thrust",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { midBack, lats, midChest, tricepsLateralHead, quadriceps, glutes, upperAbs, frontDelts }
+            },
+            new() 
+            { 
+                Name = "Turkish Get-Up", 
+                Description = "Full body kettlebell/dumbbell movement - stability and strength",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { frontDelts, midDelts, upperAbs, obliques, glutes, quadriceps, tricepsLongHead }
+            },
+            new() 
+            { 
+                Name = "Medicine Ball Slams", 
+                Description = "Explosive full body power - overhead slam",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { upperAbs, lats, frontDelts, tricepsLateralHead, glutes, quadriceps }
+            },
+            new() 
+            { 
+                Name = "Battle Ropes", 
+                Description = "Wave motion rope training - cardio and upper body endurance",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { frontDelts, midDelts, forearmFlexors, upperAbs, obliques, quadriceps }
+            },
+            new() 
+            { 
+                Name = "Box Jumps", 
+                Description = "Plyometric lower body power exercise",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { quadriceps, glutes, calves, hamstrings }
+            },
+            new() 
+            { 
+                Name = "Sled Push", 
+                Description = "Heavy sled pushing - lower body and conditioning",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { quadriceps, glutes, calves, upperAbs, tricepsLateralHead }
+            },
+            new() 
+            { 
+                Name = "Sled Pull", 
+                Description = "Heavy sled pulling - posterior chain and back",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { hamstrings, glutes, lats, midBack, bicepsLongHead, forearmFlexors }
+            },
+            new() 
+            { 
+                Name = "Rowing Machine", 
+                Description = "Full body cardio with emphasis on back and legs",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { lats, midBack, bicepsLongHead, quadriceps, hamstrings, glutes }
+            },
+            new() 
+            { 
+                Name = "Assault Bike", 
+                Description = "Full body cardio - arms and legs",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { quadriceps, hamstrings, tricepsLateralHead, frontDelts }
+            },
+            new() 
+            { 
+                Name = "Wall Balls", 
+                Description = "Squat + overhead throw - full body conditioning",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { quadriceps, glutes, frontDelts, midDelts, tricepsLateralHead, upperAbs }
+            },
+            new() 
+            { 
+                Name = "Kettlebell Swings", 
+                Description = "Hip hinge explosive movement - posterior chain power",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { glutes, hamstrings, lowerBack, frontDelts, forearmFlexors }
+            },
+            new() 
+            { 
+                Name = "Bear Crawls", 
+                Description = "Quadruped movement - full body stability and endurance",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { frontDelts, tricepsMedialHead, upperAbs, quadriceps, hipFlexors }
             }
         };
 

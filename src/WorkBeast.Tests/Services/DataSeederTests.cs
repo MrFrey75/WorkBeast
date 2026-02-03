@@ -35,8 +35,8 @@ public class DataSeederTests : IDisposable
 
         Assert.NotEmpty(bodyParts);
         Assert.NotEmpty(exercises);
-        Assert.True(bodyParts.Count >= 25); // At least 25 granular body parts
-        Assert.True(exercises.Count >= 30); // At least 30 exercises
+        Assert.True(bodyParts.Count >= 31); // At least 31 granular body parts (expanded arms)
+        Assert.True(exercises.Count >= 60); // At least 60 exercises (more arm + full body)
         Assert.All(bodyParts, bp => Assert.True(bp.IsSystem));
         Assert.All(exercises, ex => Assert.True(ex.IsSystem));
     }
