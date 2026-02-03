@@ -30,7 +30,8 @@ public class DataSeeder : IDataSeeder
 
         await SeedBodyPartsAsync();
         await SeedExercisesAsync();
-        
+        // Body parts are already saved in SeedBodyPartsAsync
+        // Exercises will be saved here
         await _context.SaveChangesAsync();
     }
 
@@ -55,23 +56,26 @@ public class DataSeeder : IDataSeeder
         };
 
         await _context.BodyParts.AddRangeAsync(bodyParts);
+        await _context.SaveChangesAsync(); // Save body parts first
     }
 
     private async Task SeedExercisesAsync()
     {
-        // Get body parts for reference
-        var chest = await _context.BodyParts.FirstAsync(bp => bp.Name == "Chest");
-        var back = await _context.BodyParts.FirstAsync(bp => bp.Name == "Back");
-        var shoulders = await _context.BodyParts.FirstAsync(bp => bp.Name == "Shoulders");
-        var biceps = await _context.BodyParts.FirstAsync(bp => bp.Name == "Biceps");
-        var triceps = await _context.BodyParts.FirstAsync(bp => bp.Name == "Triceps");
-        var abs = await _context.BodyParts.FirstAsync(bp => bp.Name == "Abs");
-        var quadriceps = await _context.BodyParts.FirstAsync(bp => bp.Name == "Quadriceps");
-        var hamstrings = await _context.BodyParts.FirstAsync(bp => bp.Name == "Hamstrings");
-        var glutes = await _context.BodyParts.FirstAsync(bp => bp.Name == "Glutes");
-        var calves = await _context.BodyParts.FirstAsync(bp => bp.Name == "Calves");
-        var traps = await _context.BodyParts.FirstAsync(bp => bp.Name == "Traps");
-        var lats = await _context.BodyParts.FirstAsync(bp => bp.Name == "Lats");
+        // Get body parts for reference - they're already in the database
+        var bodyParts = await _context.BodyParts.ToDictionaryAsync(bp => bp.Name);
+
+        var chest = bodyParts["Chest"];
+        var back = bodyParts["Back"];
+        var shoulders = bodyParts["Shoulders"];
+        var biceps = bodyParts["Biceps"];
+        var triceps = bodyParts["Triceps"];
+        var abs = bodyParts["Abs"];
+        var quadriceps = bodyParts["Quadriceps"];
+        var hamstrings = bodyParts["Hamstrings"];
+        var glutes = bodyParts["Glutes"];
+        var calves = bodyParts["Calves"];
+        var traps = bodyParts["Traps"];
+        var lats = bodyParts["Lats"];
 
         var exercises = new List<Exercise>
         {
