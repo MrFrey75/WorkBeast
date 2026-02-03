@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WorkBeast.Core\WorkBeast.Core.csproj" />
     <ProjectReference Include="..\WorkBeast.Data\WorkBeast.Data.csproj" />
+    <ProjectReference Include="..\WorkBeast.Api\WorkBeast.Api.csproj" />
   </ItemGroup>
 
 </Project>
