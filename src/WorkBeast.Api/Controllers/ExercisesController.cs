@@ -54,7 +54,11 @@ public class ExercisesController : ControllerBase
         return Ok(exercise);
     }
 
+    /// <summary>
+    /// Create new exercise (Admin or Trainer only)
+    /// </summary>
     [HttpPost]
+    [Authorize(Roles = "Admin,Trainer")]
     public async Task<ActionResult<Exercise>> CreateExercise(Exercise exercise)
     {
         exercise.CreatedAt = DateTime.UtcNow;
@@ -66,7 +70,11 @@ public class ExercisesController : ControllerBase
         return CreatedAtAction(nameof(GetExercise), new { id = exercise.Oid }, exercise);
     }
 
+    /// <summary>
+    /// Update exercise (Admin or Trainer only)
+    /// </summary>
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin,Trainer")]
     public async Task<IActionResult> UpdateExercise(int id, Exercise exercise)
     {
         if (id != exercise.Oid)
@@ -78,6 +86,11 @@ public class ExercisesController : ControllerBase
         if (existingExercise == null || existingExercise.IsDeleted)
         {
             return NotFound();
+        }
+
+        if (existingExercise.IsSystem)
+        {
+            return BadRequest(new { message = "System exercises cannot be modified." });
         }
 
         existingExercise.Name = exercise.Name;
@@ -96,7 +109,11 @@ public class ExercisesController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    /// Delete exercise (Admin only)
+    /// </summary>
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteExercise(int id)
     {
         var exercise = await _context.Exercises.FindAsync(id);
@@ -107,7 +124,7 @@ public class ExercisesController : ControllerBase
 
         if (exercise.IsSystem)
         {
-            return BadRequest("System exercises cannot be deleted.");
+            return BadRequest(new { message = "System exercises cannot be deleted." });
         }
 
         exercise.IsDeleted = true;

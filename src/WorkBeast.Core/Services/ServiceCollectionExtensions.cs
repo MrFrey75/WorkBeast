@@ -13,6 +13,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddWorkBeastCore(this IServiceCollection services)
     {
         services.AddSingleton<IApplicationInitializer, ApplicationInitializer>();
+        services.AddSingleton<IConfigurationService, ConfigurationService>();
         services.AddScoped<IAuthService, AuthService>();
 
         return services;

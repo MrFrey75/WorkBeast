@@ -1,0 +1,163 @@
+using Microsoft.EntityFrameworkCore;
+using WorkBeast.Core.Models;
+using WorkBeast.Data.Context;
+using WorkBeast.Data.Services;
+using Xunit;
+
+namespace WorkBeast.Tests.Services;
+
+public class DataSeederTests : IDisposable
+{
+    private readonly AppDbContext _context;
+    private readonly DataSeeder _seeder;
+
+    public DataSeederTests()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        _context = new AppDbContext(options);
+        _seeder = new DataSeeder(_context);
+    }
+
+    public void Dispose()
+    {
+        _context.Database.EnsureDeleted();
+        _context.Dispose();
+    }
+
+    [Fact]
+    public async Task SeedAsync_CreatesBodyParts()
+    {
+        // Act
+        await _seeder.SeedAsync();
+
+        // Assert
+        var bodyParts = await _context.BodyParts.ToListAsync();
+        Assert.NotEmpty(bodyParts);
+        Assert.True(bodyParts.Count >= 14);
+        Assert.Contains(bodyParts, bp => bp.Name == "Chest");
+        Assert.Contains(bodyParts, bp => bp.Name == "Back");
+        Assert.Contains(bodyParts, bp => bp.Name == "Shoulders");
+    }
+
+    [Fact]
+    public async Task SeedAsync_CreatesExercises()
+    {
+        // Act
+        await _seeder.SeedAsync();
+
+        // Assert
+        var exercises = await _context.Exercises.ToListAsync();
+        Assert.NotEmpty(exercises);
+        Assert.True(exercises.Count >= 16);
+        Assert.Contains(exercises, e => e.Name == "Bench Press");
+        Assert.Contains(exercises, e => e.Name == "Squat");
+        Assert.Contains(exercises, e => e.Name == "Deadlift");
+    }
+
+    [Fact]
+    public async Task SeedAsync_MarksEntitiesAsSystem()
+    {
+        // Act
+        await _seeder.SeedAsync();
+
+        // Assert
+        var bodyParts = await _context.BodyParts.ToListAsync();
+        var exercises = await _context.Exercises.ToListAsync();
+
+        Assert.All(bodyParts, bp => Assert.True(bp.IsSystem));
+        Assert.All(exercises, e => Assert.True(e.IsSystem));
+    }
+
+    [Fact]
+    public async Task SeedAsync_LinksExercisesToBodyParts()
+    {
+        // Act
+        await _seeder.SeedAsync();
+
+        // Assert
+        var benchPress = await _context.Exercises
+            .Include(e => e.TargetedBodyParts)
+            .FirstOrDefaultAsync(e => e.Name == "Bench Press");
+
+        Assert.NotNull(benchPress);
+        Assert.NotEmpty(benchPress.TargetedBodyParts);
+        Assert.Contains(benchPress.TargetedBodyParts, bp => bp.Name == "Chest");
+    }
+
+    [Fact]
+    public async Task SeedAsync_DoesNotDuplicateDataOnMultipleCalls()
+    {
+        // Act
+        await _seeder.SeedAsync();
+        var firstCount = await _context.Exercises.CountAsync();
+
+        await _seeder.SeedAsync(); // Second call
+        var secondCount = await _context.Exercises.CountAsync();
+
+        // Assert
+        Assert.Equal(firstCount, secondCount);
+    }
+
+    [Fact]
+    public async Task SeedAsync_SetsTimestamps()
+    {
+        // Act
+        await _seeder.SeedAsync();
+
+        // Assert
+        var bodyParts = await _context.BodyParts.ToListAsync();
+        Assert.All(bodyParts, bp =>
+        {
+            Assert.NotEqual(DateTime.MinValue, bp.CreatedAt);
+            Assert.NotEqual(DateTime.MinValue, bp.UpdatedAt);
+        });
+    }
+
+    [Fact]
+    public async Task SeedAsync_CreatesSpecificBodyParts()
+    {
+        // Act
+        await _seeder.SeedAsync();
+
+        // Assert
+        var expectedBodyParts = new[] { "Chest", "Back", "Shoulders", "Biceps", "Triceps", 
+            "Forearms", "Abs", "Obliques", "Quadriceps", "Hamstrings", "Glutes", "Calves", "Traps", "Lats" };
+
+        foreach (var name in expectedBodyParts)
+        {
+            var bodyPart = await _context.BodyParts.FirstOrDefaultAsync(bp => bp.Name == name);
+            Assert.NotNull(bodyPart);
+            Assert.NotEmpty(bodyPart.Description);
+        }
+    }
+
+    [Fact]
+    public async Task SeedAsync_CreatesBodyweightExercises()
+    {
+        // Act
+        await _seeder.SeedAsync();
+
+        // Assert
+        var pushUps = await _context.Exercises.FirstOrDefaultAsync(e => e.Name == "Push-ups");
+        var pullUps = await _context.Exercises.FirstOrDefaultAsync(e => e.Name == "Pull-ups");
+        var crunches = await _context.Exercises.FirstOrDefaultAsync(e => e.Name == "Crunches");
+
+        Assert.NotNull(pushUps);
+        Assert.NotNull(pullUps);
+        Assert.NotNull(crunches);
+    }
+
+    [Fact]
+    public async Task SeedAsync_ExercisesHaveDescriptions()
+    {
+        // Act
+        await _seeder.SeedAsync();
+
+        // Assert
+        var exercises = await _context.Exercises.ToListAsync();
+        Assert.All(exercises, e => Assert.NotEmpty(e.Description));
+    }
+}

@@ -133,6 +133,11 @@ public class WorkoutSessionsController : ControllerBase
             return NotFound();
         }
 
+        if (session.IsSystem)
+        {
+            return BadRequest(new { message = "System workout sessions cannot be deleted." });
+        }
+
         session.IsDeleted = true;
         session.UpdatedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();

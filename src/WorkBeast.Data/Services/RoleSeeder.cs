@@ -27,15 +27,16 @@ public class RoleSeeder
     {
         await SeedRolesAsync();
         await SeedAdminUserAsync();
+        await SeedBasicUserAsync();
     }
 
     private async Task SeedRolesAsync()
     {
         var roles = new[]
         {
-            new ApplicationRole { Name = "Admin", Description = "Full system access" },
+            new ApplicationRole { Name = "Admin", Description = "Full system access", IsSystem = true},
             new ApplicationRole { Name = "Trainer", Description = "Can manage workout plans and exercises" },
-            new ApplicationRole { Name = "User", Description = "Standard user access" }
+            new ApplicationRole { Name = "User", Description = "Standard user access", IsSystem = true}
         };
 
         foreach (var role in roles)
@@ -70,7 +71,8 @@ public class RoleSeeder
                 FirstName = "System",
                 LastName = "Administrator",
                 EmailConfirmed = true,
-                IsActive = true
+                IsActive = true,
+                IsSystem = true
             };
 
             var result = await _userManager.CreateAsync(adminUser, adminPassword);
@@ -83,6 +85,39 @@ public class RoleSeeder
             else
             {
                 _logger.LogError("Failed to create admin user");
+            }
+        }
+    }
+
+    private async Task SeedBasicUserAsync()
+    {
+        const string userEmail = "user@workbeast.com";
+        const string userPassword = "User@123";
+
+        var basicUser = await _userManager.FindByEmailAsync(userEmail);
+        if (basicUser == null)
+        {
+            basicUser = new ApplicationUser
+            {
+                UserName = userEmail,
+                Email = userEmail,
+                FirstName = "Basic",
+                LastName = "User",
+                EmailConfirmed = true,
+                IsActive = true,
+                IsSystem = true
+            };
+
+            var result = await _userManager.CreateAsync(basicUser, userPassword);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(basicUser, "User");
+                _logger.LogInformation("Created default basic user: {Email}", userEmail);
+                _logger.LogWarning("IMPORTANT: Change the default basic user password after first login!");
+            }
+            else
+            {
+                _logger.LogError("Failed to create basic user");
             }
         }
     }

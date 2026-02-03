@@ -60,9 +60,6 @@ public class ApplicationInitializer : IApplicationInitializer
             CreateDirectoryIfNotExists(_exportsPath, "Data exports");
             CreateDirectoryIfNotExists(_importsPath, "Data imports");
 
-            // Create configuration file if it doesn't exist
-            await CreateDefaultConfigurationFileAsync();
-
             // Create a README file in the app data directory
             await CreateReadMeFileAsync();
 
@@ -113,39 +110,6 @@ public class ApplicationInitializer : IApplicationInitializer
         }
     }
 
-    private async Task CreateDefaultConfigurationFileAsync()
-    {
-        var configPath = Path.Combine(_appDataPath, "config.json");
-        
-        if (File.Exists(configPath))
-        {
-            _logger.LogDebug("Configuration file already exists: {ConfigPath}", configPath);
-            return;
-        }
-
-        var defaultConfig = @"{
-  ""Application"": {
-    ""Name"": ""WorkBeast"",
-    ""Version"": ""1.0.0"",
-    ""Theme"": ""Light"",
-    ""Language"": ""en-US""
-  },
-  ""Database"": {
-    ""AutoBackup"": true,
-    ""BackupIntervalDays"": 7,
-    ""MaxBackupCount"": 10
-  },
-  ""Logging"": {
-    ""Enabled"": true,
-    ""Level"": ""Information"",
-    ""RetentionDays"": 30
-  }
-}";
-
-        await File.WriteAllTextAsync(configPath, defaultConfig);
-        _logger.LogInformation("Created default configuration file: {ConfigPath}", configPath);
-    }
-
     private async Task CreateReadMeFileAsync()
     {
         var readmePath = Path.Combine(_appDataPath, "README.txt");
@@ -163,18 +127,29 @@ Created: {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} UTC
 
 Directory Structure:
 --------------------
-- Logs/       : Application log files
-- Backups/    : Automatic database backups
-- Exports/    : Exported workout data (JSON, CSV, etc.)
-- Imports/    : Place files here to import workout data
-- config.json : Application configuration
+- Logs/                    : Application log files
+- Backups/                 : Automatic database backups
+- Exports/                 : Exported workout data (JSON, CSV, etc.)
+- Imports/                 : Place files here to import workout data
+- config.encrypted.json    : Encrypted application configuration
+- .encryption.key          : Encryption key (DO NOT DELETE OR SHARE)
+- workbeast.db             : SQLite database
 
 IMPORTANT:
 ----------
-- Do not manually modify files in this directory unless you know what you're doing
+- Do not manually modify encrypted configuration files
+- NEVER share or delete the .encryption.key file
 - Database backups are stored in the Backups/ folder
 - Log files older than 30 days are automatically deleted
 - You can safely delete the Exports/ folder contents
+- Use the API to manage configuration settings
+
+Security:
+---------
+- Configuration is encrypted using AES-256
+- API keys and sensitive data are protected
+- Keep .encryption.key file secure and backed up
+- If .encryption.key is lost, encrypted configuration cannot be recovered
 
 For more information, visit: https://github.com/MrFrey75/WorkBeast
 ";

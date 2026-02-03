@@ -12,6 +12,7 @@ public class ApplicationUser : IdentityUser<int>
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? LastLoginAt { get; set; }
     public bool IsActive { get; set; } = true;
+    public bool IsSystem { get; set; } = false;
 
     public string FullName => $"{FirstName} {LastName}".Trim();
 }
@@ -23,4 +24,5 @@ public class ApplicationRole : IdentityRole<int>
 {
     public string Description { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public bool IsSystem { get; set; } = false;
 }

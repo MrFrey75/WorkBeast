@@ -133,6 +133,10 @@ using (var scope = app.Services.CreateScope())
         var appInitializer = services.GetRequiredService<IApplicationInitializer>();
         await appInitializer.InitializeAsync();
 
+        // Initialize configuration service
+        var configService = services.GetRequiredService<IConfigurationService>();
+        await configService.InitializeAsync();
+
         // Apply database migrations and seed data
         var context = services.GetRequiredService<AppDbContext>();
         await context.Database.MigrateAsync();
