@@ -5,31 +5,53 @@ using Xunit;
 
 namespace WorkBeast.Tests.Services;
 
+[Collection("FileSystem")]
 public class ApplicationInitializerTests : IDisposable
 {
     private readonly Mock<ILogger<ApplicationInitializer>> _loggerMock;
     private readonly ApplicationInitializer _service;
     private readonly string _testAppDataPath;
+    private static readonly object _lockObj = new object();
 
     public ApplicationInitializerTests()
     {
         _loggerMock = new Mock<ILogger<ApplicationInitializer>>();
         _service = new ApplicationInitializer(_loggerMock.Object);
         _testAppDataPath = _service.GetApplicationDataPath();
+        
+        // Ensure clean state before test
+        lock (_lockObj)
+        {
+            if (Directory.Exists(_testAppDataPath))
+            {
+                try
+                {
+                    Directory.Delete(_testAppDataPath, true);
+                    Thread.Sleep(100);
+                }
+                catch
+                {
+                    // Ignore cleanup errors
+                }
+            }
+        }
     }
 
     public void Dispose()
     {
-        // Clean up test directories
-        if (Directory.Exists(_testAppDataPath))
+        // Clean up test directories after test completes
+        lock (_lockObj)
         {
-            try
+            if (Directory.Exists(_testAppDataPath))
             {
-                Directory.Delete(_testAppDataPath, true);
-            }
-            catch
-            {
-                // Ignore cleanup errors
+                try
+                {
+                    Directory.Delete(_testAppDataPath, true);
+                }
+                catch
+                {
+                    // Ignore cleanup errors
+                }
             }
         }
     }

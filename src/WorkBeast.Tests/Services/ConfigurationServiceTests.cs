@@ -6,32 +6,59 @@ using Xunit;
 
 namespace WorkBeast.Tests.Services;
 
+[Collection("FileSystem")]
 public class ConfigurationServiceTests : IDisposable
 {
     private readonly Mock<ILogger<ConfigurationService>> _loggerMock;
     private readonly ConfigurationService _service;
     private readonly string _configPath;
+    private readonly string _testDirectory;
+    private static readonly object _lockObj = new object();
 
     public ConfigurationServiceTests()
     {
         _loggerMock = new Mock<ILogger<ConfigurationService>>();
+        
+        // Clean up before creating service
+        lock (_lockObj)
+        {
+            var tempService = new ConfigurationService(_loggerMock.Object);
+            _testDirectory = Path.GetDirectoryName(tempService.GetConfigurationFilePath())!;
+            
+            if (Directory.Exists(_testDirectory))
+            {
+                try
+                {
+                    Directory.Delete(_testDirectory, true);
+                    Thread.Sleep(100); // Give filesystem time to cleanup
+                }
+                catch
+                {
+                    // Ignore cleanup errors
+                }
+            }
+        }
+        
+        // Now create the actual service for testing
         _service = new ConfigurationService(_loggerMock.Object);
         _configPath = _service.GetConfigurationFilePath();
     }
 
     public void Dispose()
     {
-        // Clean up test files
-        var directory = Path.GetDirectoryName(_configPath);
-        if (!string.IsNullOrEmpty(directory) && Directory.Exists(directory))
+        // Clean up test files after test completes
+        lock (_lockObj)
         {
-            try
+            if (Directory.Exists(_testDirectory))
             {
-                Directory.Delete(directory, true);
-            }
-            catch
-            {
-                // Ignore cleanup errors
+                try
+                {
+                    Directory.Delete(_testDirectory, true);
+                }
+                catch
+                {
+                    // Ignore cleanup errors
+                }
             }
         }
     }

@@ -23,6 +23,9 @@ public class ConfigurationService : IConfigurationService
         _encryptionKey = GetOrCreateEncryptionKey();
     }
 
+    /// <summary>
+    /// Initializes the configuration file if it doesn't exist
+    /// </summary>
     public async Task InitializeAsync()
     {
         if (ConfigurationExists())
@@ -39,6 +42,10 @@ public class ConfigurationService : IConfigurationService
         _logger.LogInformation("Configuration initialized successfully");
     }
 
+    /// <summary>
+    /// Loads the application configuration from encrypted file
+    /// </summary>
+    /// <returns>The application configuration</returns>
     public async Task<AppConfiguration> LoadAsync()
     {
         if (_cachedConfig != null)
@@ -70,6 +77,10 @@ public class ConfigurationService : IConfigurationService
         }
     }
 
+    /// <summary>
+    /// Saves the application configuration to encrypted file
+    /// </summary>
+    /// <param name="configuration">The configuration to save</param>
     public async Task SaveAsync(AppConfiguration configuration)
     {
         try
@@ -101,6 +112,12 @@ public class ConfigurationService : IConfigurationService
         }
     }
 
+    /// <summary>
+    /// Gets a specific configuration value by key path (e.g., "Application.Name")
+    /// </summary>
+    /// <typeparam name="T">The type of the value to retrieve</typeparam>
+    /// <param name="key">The dot-separated key path</param>
+    /// <returns>The configuration value, or default if not found</returns>
     public async Task<T?> GetValueAsync<T>(string key)
     {
         var config = await LoadAsync();
@@ -125,6 +142,12 @@ public class ConfigurationService : IConfigurationService
         return default;
     }
 
+    /// <summary>
+    /// Sets a specific configuration value by key path (e.g., "Application.Name")
+    /// </summary>
+    /// <typeparam name="T">The type of the value to set</typeparam>
+    /// <param name="key">The dot-separated key path</param>
+    /// <param name="value">The value to set</param>
     public async Task SetValueAsync<T>(string key, T value)
     {
         var config = await LoadAsync();
@@ -158,6 +181,10 @@ public class ConfigurationService : IConfigurationService
         await SaveAsync(config);
     }
 
+    /// <summary>
+    /// Gets the full path to the configuration file
+    /// </summary>
+    /// <returns>The configuration file path</returns>
     public string GetConfigurationFilePath()
     {
         string baseDataPath;
@@ -181,6 +208,10 @@ public class ConfigurationService : IConfigurationService
         return Path.Combine(appDataPath, "config.encrypted.json");
     }
 
+    /// <summary>
+    /// Checks if the configuration file exists
+    /// </summary>
+    /// <returns>True if configuration file exists, false otherwise</returns>
     public bool ConfigurationExists()
     {
         return File.Exists(_configFilePath);

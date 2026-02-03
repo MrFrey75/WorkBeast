@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Moq;
 using WorkBeast.Core.DTOs;
 using WorkBeast.Core.Models;
@@ -257,16 +258,44 @@ public class AuthServiceTests
     private Mock<UserManager<ApplicationUser>> MockUserManager()
     {
         var store = new Mock<IUserStore<ApplicationUser>>();
+        var optionsAccessor = new Mock<Microsoft.Extensions.Options.IOptions<IdentityOptions>>();
+        optionsAccessor.Setup(x => x.Value).Returns(new IdentityOptions());
+        
+        var passwordHasher = new Mock<IPasswordHasher<ApplicationUser>>();
+        var userValidators = new List<IUserValidator<ApplicationUser>>();
+        var passwordValidators = new List<IPasswordValidator<ApplicationUser>>();
+        var keyNormalizer = new Mock<ILookupNormalizer>();
+        var errors = new Mock<IdentityErrorDescriber>();
+        var services = new Mock<IServiceProvider>();
+        var logger = new Mock<ILogger<UserManager<ApplicationUser>>>();
+        
         var mock = new Mock<UserManager<ApplicationUser>>(
-            store.Object, null, null, null, null, null, null, null, null);
+            store.Object, 
+            optionsAccessor.Object, 
+            passwordHasher.Object, 
+            userValidators, 
+            passwordValidators, 
+            keyNormalizer.Object, 
+            errors.Object, 
+            services.Object, 
+            logger.Object);
         return mock;
     }
 
     private Mock<RoleManager<ApplicationRole>> MockRoleManager()
     {
         var store = new Mock<IRoleStore<ApplicationRole>>();
+        var roleValidators = new List<IRoleValidator<ApplicationRole>>();
+        var keyNormalizer = new Mock<ILookupNormalizer>();
+        var errors = new Mock<IdentityErrorDescriber>();
+        var logger = new Mock<ILogger<RoleManager<ApplicationRole>>>();
+        
         var mock = new Mock<RoleManager<ApplicationRole>>(
-            store.Object, null, null, null, null);
+            store.Object, 
+            roleValidators, 
+            keyNormalizer.Object, 
+            errors.Object, 
+            logger.Object);
         return mock;
     }
 }
