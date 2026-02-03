@@ -35,8 +35,8 @@ public class DataSeederTests : IDisposable
 
         Assert.NotEmpty(bodyParts);
         Assert.NotEmpty(exercises);
-        Assert.True(bodyParts.Count >= 14); // At least 14 body parts
-        Assert.True(exercises.Count >= 16); // At least 16 exercises
+        Assert.True(bodyParts.Count >= 25); // At least 25 granular body parts
+        Assert.True(exercises.Count >= 30); // At least 30 exercises
         Assert.All(bodyParts, bp => Assert.True(bp.IsSystem));
         Assert.All(exercises, ex => Assert.True(ex.IsSystem));
     }
@@ -65,11 +65,11 @@ public class DataSeederTests : IDisposable
         // Assert
         var benchPress = await _context.Exercises
             .Include(e => e.TargetedBodyParts)
-            .FirstOrDefaultAsync(e => e.Name == "Bench Press");
+            .FirstOrDefaultAsync(e => e.Name == "Flat Barbell Bench Press");
 
         Assert.NotNull(benchPress);
         Assert.NotEmpty(benchPress.TargetedBodyParts);
-        Assert.Contains(benchPress.TargetedBodyParts, bp => bp.Name == "Chest");
+        Assert.Contains(benchPress.TargetedBodyParts, bp => bp.Name == "Mid Chest");
     }
 
     [Fact]

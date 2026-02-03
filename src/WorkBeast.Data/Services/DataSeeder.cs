@@ -39,20 +39,42 @@ public class DataSeeder : IDataSeeder
     {
         var bodyParts = new List<BodyPart>
         {
-            new() { Name = "Chest", Description = "Pectoral muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
-            new() { Name = "Back", Description = "Upper and lower back muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
-            new() { Name = "Shoulders", Description = "Deltoid muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
-            new() { Name = "Biceps", Description = "Front upper arm muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
-            new() { Name = "Triceps", Description = "Back upper arm muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
-            new() { Name = "Forearms", Description = "Lower arm muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
-            new() { Name = "Abs", Description = "Abdominal muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
-            new() { Name = "Obliques", Description = "Side abdominal muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
-            new() { Name = "Quadriceps", Description = "Front thigh muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            // Chest - Granular
+            new() { Name = "Upper Chest", Description = "Clavicular head of pectoralis major", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Mid Chest", Description = "Sternal head of pectoralis major (middle fibers)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Lower Chest", Description = "Sternal head of pectoralis major (lower fibers)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            
+            // Shoulders - Granular
+            new() { Name = "Front Delts", Description = "Anterior deltoid muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Mid Delts", Description = "Lateral/middle deltoid muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Rear Delts", Description = "Posterior deltoid muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            
+            // Back - Granular
+            new() { Name = "Upper Back", Description = "Upper trapezius and rhomboids", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Mid Back", Description = "Middle trapezius, rhomboids, and mid lats", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Lower Back", Description = "Lower back, erector spinae muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Lats", Description = "Latissimus dorsi muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Traps", Description = "Trapezius muscles (upper, middle, lower)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            
+            // Arms
+            new() { Name = "Biceps", Description = "Biceps brachii - front upper arm", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Triceps", Description = "Triceps brachii - back upper arm", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Forearms", Description = "Wrist flexors and extensors", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            
+            // Core - Granular
+            new() { Name = "Upper Abs", Description = "Upper rectus abdominis", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Lower Abs", Description = "Lower rectus abdominis", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Obliques", Description = "Internal and external obliques", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Serratus", Description = "Serratus anterior muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            
+            // Legs - Granular
+            new() { Name = "Quadriceps", Description = "Front thigh muscles (4 heads)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
             new() { Name = "Hamstrings", Description = "Back thigh muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
-            new() { Name = "Glutes", Description = "Gluteal muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
-            new() { Name = "Calves", Description = "Lower leg muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
-            new() { Name = "Traps", Description = "Trapezius muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
-            new() { Name = "Lats", Description = "Latissimus dorsi muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
+            new() { Name = "Glutes", Description = "Gluteus maximus, medius, and minimus", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Hip Flexors", Description = "Iliopsoas and hip flexor muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Adductors", Description = "Inner thigh muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Abductors", Description = "Outer hip muscles (gluteus medius/minimus)", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Name = "Calves", Description = "Gastrocnemius and soleus muscles", IsSystem = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
         };
 
         await _context.BodyParts.AddRangeAsync(bodyParts);
@@ -64,30 +86,72 @@ public class DataSeeder : IDataSeeder
         // Get body parts for reference - they're already in the database
         var bodyParts = await _context.BodyParts.ToDictionaryAsync(bp => bp.Name);
 
-        var chest = bodyParts["Chest"];
-        var back = bodyParts["Back"];
-        var shoulders = bodyParts["Shoulders"];
+        // Chest
+        var upperChest = bodyParts["Upper Chest"];
+        var midChest = bodyParts["Mid Chest"];
+        var lowerChest = bodyParts["Lower Chest"];
+        
+        // Shoulders
+        var frontDelts = bodyParts["Front Delts"];
+        var midDelts = bodyParts["Mid Delts"];
+        var rearDelts = bodyParts["Rear Delts"];
+        
+        // Back
+        var upperBack = bodyParts["Upper Back"];
+        var midBack = bodyParts["Mid Back"];
+        var lowerBack = bodyParts["Lower Back"];
+        var lats = bodyParts["Lats"];
+        var traps = bodyParts["Traps"];
+        
+        // Arms
         var biceps = bodyParts["Biceps"];
         var triceps = bodyParts["Triceps"];
-        var abs = bodyParts["Abs"];
+        var forearms = bodyParts["Forearms"];
+        
+        // Core
+        var upperAbs = bodyParts["Upper Abs"];
+        var lowerAbs = bodyParts["Lower Abs"];
+        var obliques = bodyParts["Obliques"];
+        var serratus = bodyParts["Serratus"];
+        
+        // Legs
         var quadriceps = bodyParts["Quadriceps"];
         var hamstrings = bodyParts["Hamstrings"];
         var glutes = bodyParts["Glutes"];
+        var hipFlexors = bodyParts["Hip Flexors"];
+        var adductors = bodyParts["Adductors"];
+        var abductors = bodyParts["Abductors"];
         var calves = bodyParts["Calves"];
-        var traps = bodyParts["Traps"];
-        var lats = bodyParts["Lats"];
 
         var exercises = new List<Exercise>
         {
-            // Chest
+            // Chest Exercises
             new() 
             { 
-                Name = "Bench Press", 
-                Description = "Barbell bench press for chest development",
+                Name = "Flat Barbell Bench Press", 
+                Description = "Barbell bench press for overall chest development",
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { chest, shoulders, triceps }
+                TargetedBodyParts = new List<BodyPart> { midChest, upperChest, frontDelts, triceps }
+            },
+            new() 
+            { 
+                Name = "Incline Barbell Bench Press", 
+                Description = "Incline bench press emphasizing upper chest",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { upperChest, frontDelts, triceps }
+            },
+            new() 
+            { 
+                Name = "Decline Barbell Bench Press", 
+                Description = "Decline bench press emphasizing lower chest",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { lowerChest, triceps }
             },
             new() 
             { 
@@ -96,7 +160,16 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { chest }
+                TargetedBodyParts = new List<BodyPart> { midChest, upperChest }
+            },
+            new() 
+            { 
+                Name = "Cable Crossover", 
+                Description = "Cable chest crossover for chest definition",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { midChest, lowerChest }
             },
             new() 
             { 
@@ -105,10 +178,10 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { chest, shoulders, triceps }
+                TargetedBodyParts = new List<BodyPart> { midChest, frontDelts, triceps, serratus }
             },
 
-            // Back
+            // Back Exercises
             new() 
             { 
                 Name = "Deadlift", 
@@ -116,7 +189,7 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { back, hamstrings, glutes, traps }
+                TargetedBodyParts = new List<BodyPart> { lowerBack, midBack, traps, hamstrings, glutes, forearms }
             },
             new() 
             { 
@@ -125,7 +198,7 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { lats, biceps }
+                TargetedBodyParts = new List<BodyPart> { lats, midBack, biceps, forearms }
             },
             new() 
             { 
@@ -134,18 +207,45 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { back, lats, biceps }
+                TargetedBodyParts = new List<BodyPart> { midBack, lats, traps, rearDelts, biceps }
             },
-
-            // Shoulders
             new() 
             { 
-                Name = "Overhead Press", 
-                Description = "Barbell or dumbbell overhead press",
+                Name = "Lat Pulldown", 
+                Description = "Cable lat pulldown for lat width",
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { shoulders, triceps }
+                TargetedBodyParts = new List<BodyPart> { lats, midBack, biceps }
+            },
+            new() 
+            { 
+                Name = "Face Pulls", 
+                Description = "Cable face pulls for rear delts and upper back",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { rearDelts, upperBack, traps }
+            },
+
+            // Shoulder Exercises
+            new() 
+            { 
+                Name = "Barbell Overhead Press", 
+                Description = "Standing or seated barbell overhead press",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { frontDelts, midDelts, triceps, upperChest }
+            },
+            new() 
+            { 
+                Name = "Dumbbell Shoulder Press", 
+                Description = "Seated dumbbell shoulder press",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { frontDelts, midDelts, triceps }
             },
             new() 
             { 
@@ -154,18 +254,45 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { shoulders }
+                TargetedBodyParts = new List<BodyPart> { midDelts }
             },
-
-            // Arms
             new() 
             { 
-                Name = "Barbell Curl", 
-                Description = "Barbell bicep curl",
+                Name = "Front Raise", 
+                Description = "Dumbbell or barbell front raise",
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { biceps }
+                TargetedBodyParts = new List<BodyPart> { frontDelts }
+            },
+            new() 
+            { 
+                Name = "Reverse Fly", 
+                Description = "Dumbbell or cable reverse fly for rear delts",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { rearDelts, upperBack }
+            },
+
+            // Arm Exercises
+            new() 
+            { 
+                Name = "Barbell Curl", 
+                Description = "Standing barbell bicep curl",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { biceps, forearms }
+            },
+            new() 
+            { 
+                Name = "Hammer Curl", 
+                Description = "Dumbbell hammer curl for biceps and forearms",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { biceps, forearms }
             },
             new() 
             { 
@@ -174,18 +301,45 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { triceps, chest }
+                TargetedBodyParts = new List<BodyPart> { triceps, lowerChest }
             },
-
-            // Legs
             new() 
             { 
-                Name = "Squat", 
+                Name = "Skull Crushers", 
+                Description = "Lying tricep extension (skull crushers)",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { triceps }
+            },
+            new() 
+            { 
+                Name = "Cable Tricep Pushdown", 
+                Description = "Cable tricep pushdown",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { triceps }
+            },
+
+            // Leg Exercises
+            new() 
+            { 
+                Name = "Barbell Back Squat", 
                 Description = "Barbell back squat",
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { quadriceps, hamstrings, glutes }
+                TargetedBodyParts = new List<BodyPart> { quadriceps, hamstrings, glutes, lowerBack }
+            },
+            new() 
+            { 
+                Name = "Romanian Deadlift", 
+                Description = "Romanian deadlift for hamstrings and glutes",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { hamstrings, glutes, lowerBack }
             },
             new() 
             { 
@@ -198,7 +352,7 @@ public class DataSeeder : IDataSeeder
             },
             new() 
             { 
-                Name = "Lunges", 
+                Name = "Walking Lunges", 
                 Description = "Walking or stationary lunges",
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
@@ -207,15 +361,42 @@ public class DataSeeder : IDataSeeder
             },
             new() 
             { 
-                Name = "Calf Raise", 
-                Description = "Standing or seated calf raise",
+                Name = "Leg Curl", 
+                Description = "Lying or seated leg curl for hamstrings",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { hamstrings }
+            },
+            new() 
+            { 
+                Name = "Leg Extension", 
+                Description = "Machine leg extension for quadriceps",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { quadriceps }
+            },
+            new() 
+            { 
+                Name = "Hip Thrust", 
+                Description = "Barbell hip thrust for glutes",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { glutes, hamstrings }
+            },
+            new() 
+            { 
+                Name = "Standing Calf Raise", 
+                Description = "Standing calf raise on machine or Smith machine",
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 TargetedBodyParts = new List<BodyPart> { calves }
             },
 
-            // Core
+            // Core Exercises
             new() 
             { 
                 Name = "Crunches", 
@@ -223,7 +404,16 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { abs }
+                TargetedBodyParts = new List<BodyPart> { upperAbs }
+            },
+            new() 
+            { 
+                Name = "Reverse Crunches", 
+                Description = "Reverse crunches for lower abs",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { lowerAbs }
             },
             new() 
             { 
@@ -232,7 +422,25 @@ public class DataSeeder : IDataSeeder
                 IsSystem = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                TargetedBodyParts = new List<BodyPart> { abs }
+                TargetedBodyParts = new List<BodyPart> { upperAbs, lowerAbs, obliques, serratus }
+            },
+            new() 
+            { 
+                Name = "Russian Twists", 
+                Description = "Seated twisting motion for obliques",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { obliques, upperAbs }
+            },
+            new() 
+            { 
+                Name = "Hanging Leg Raise", 
+                Description = "Hanging leg raise for lower abs and hip flexors",
+                IsSystem = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                TargetedBodyParts = new List<BodyPart> { lowerAbs, hipFlexors, serratus }
             }
         };
 
