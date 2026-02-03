@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WorkBeast.Core.Models;
@@ -7,6 +8,7 @@ namespace WorkBeast.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class WorkoutSessionsController : ControllerBase
 {
     private readonly AppDbContext _context;

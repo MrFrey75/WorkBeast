@@ -13,5 +13,6 @@ dotnet build WorkBeast.Core/WorkBeast.Core.csproj
 ```
 
 Next steps:
+
 - Add Entity Framework mappings and `DbContext` in `WorkBeast.Data`.
 - Add unit tests in `WorkBeast.Tests` that reference this project.

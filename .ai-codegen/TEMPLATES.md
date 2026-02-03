@@ -1,6 +1,7 @@
 Prompt Templates for WorkBeast (use as a starting point)
 
 Feature Implementation
+
 ```
 Context: Repository uses .NET 8, C#, EF Core, ASP.NET Core MVC. Keep changes minimal and include EF migrations and xUnit tests.
 Task: Implement <short feature description>.
@@ -14,6 +15,7 @@ Output: Code diffs only, separated by file path, with brief explanations and exa
 ```
 
 Bug Fix
+
 ```
 Context: Provide failing test or minimal reproduction steps.
 Task: Fix the bug and add a unit test that reproduces the failure then passes.
@@ -25,6 +27,7 @@ Output: Code diffs and the failing->passing test description.
 ```
 
 Unit Test
+
 ```
 Context: Describe the class/method to test and any test doubles required.
 Task: Add xUnit test(s) covering behavior and edge cases.
@@ -35,6 +38,7 @@ Output: Test file(s) and command to run them.
 ```
 
 PR Description Template
+
 ```
 Title: Short descriptive title
 Summary: Brief summary of changes

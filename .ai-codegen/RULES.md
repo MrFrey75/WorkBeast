@@ -1,9 +1,11 @@
-AI Code Generation Rules — WorkBeast
+# AI Code Generation Rules — WorkBeast
 
 Goal
+
 - Produce safe, small, and reviewable changes that are buildable and testable locally.
 
 Core Rules
+
 1. Follow repository tech stack and style
    - Language: C# targeting .NET 8
    - ORM: Entity Framework Core

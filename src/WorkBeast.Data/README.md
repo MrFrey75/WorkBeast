@@ -11,5 +11,6 @@ dotnet build WorkBeast.Data/WorkBeast.Data.csproj
 ```
 
 Next steps:
+
 - Add `AppDbContext` under `WorkBeast.Data/Context`.
 - Add entity configurations and Migrations folder.

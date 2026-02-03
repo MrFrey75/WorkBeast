@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WorkBeast.Core.Models;
 
 namespace WorkBeast.Data.Context
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -18,6 +20,13 @@ namespace WorkBeast.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Configure primary keys for all entities
+            modelBuilder.Entity<Exercise>().HasKey(e => e.Oid);
+            modelBuilder.Entity<BodyPart>().HasKey(bp => bp.Oid);
+            modelBuilder.Entity<WorkoutSession>().HasKey(ws => ws.Oid);
+            modelBuilder.Entity<LoggedExercise>().HasKey(le => le.Oid);
+            modelBuilder.Entity<WorkoutSet>().HasKey(ws => ws.Oid);
 
             // Exercise - BodyPart many-to-many relationship
             modelBuilder.Entity<ExerciseBodyPart>()
