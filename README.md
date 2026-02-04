@@ -12,19 +12,19 @@ WorkBeast is a workout management application designed to help users plan, track
 
 ## Tech Stack
 
-WorkBeast is a .Net application built using the following technologies:
+WorkBeast is a .NET application built using the following technologies:
 
-- .Net 8
+- .NET 10
 - C#
-- Entity Framework Core
+- Entity Framework Core 9
 - Dependency Injection
-- Seriolog for logging
+- Serilog for logging
 - AutoMapper for object mapping
 - xUnit for testing
-- Sqlite
-- ASP.Net Core MVC
-- Bootstrap 5
-- JavaScript
+- SQLite
+- ASP.NET Core Web API
+- JWT Authentication
+- Spectre.Console for CLI
 
 ### Solution Structure
 
@@ -32,9 +32,9 @@ The solution is organized into the following projects:
 
 - `WorkBeast.Core`: Contains the core business logic and models.
 - `WorkBeast.Data`: Handles data access and database interactions.
-- `WorkBeast.Web`: The web application project that serves the frontend and backend.
+- `WorkBeast.Api`: The Web API project that serves the backend REST API.
+- `WorkBeast.AdminConsole`: A console application for administrative tasks.
 - `WorkBeast.Tests`: Contains unit and integration tests for the application.
-- `WorkBeas.AppConsole`: A console application for administrative tasks and process testing.
 
 ## Getting Started
 
@@ -44,5 +44,72 @@ To get started with WorkBeast, follow these steps:
 
    ```bash
    git clone https://github.com/MrFrey75/WorkBeast.git
-    cd WorkBeast
-    ```
+   cd WorkBeast
+   ```
+
+2. Build the solution:
+
+   ```bash
+   cd src
+   dotnet restore
+   dotnet build
+   ```
+
+3. Initialize the database using the Admin Console:
+
+   ```bash
+   cd WorkBeast.AdminConsole
+   dotnet run
+   ```
+
+   From the admin console menu:
+   - Database Management → Apply Pending Migrations
+   - Database Management → Seed System Data
+   - Database Management → Seed Roles and Admin User
+
+4. Run the API:
+
+   ```bash
+   cd ../WorkBeast.Api
+   dotnet run
+   ```
+
+   The API will be available at `http://localhost:5202` (or as configured in launchSettings.json).
+
+5. Access the Swagger UI at `http://localhost:5202/swagger` for API documentation.
+
+## Administrative Console
+
+The `WorkBeast.AdminConsole` provides a command-line interface for:
+
+- **Database Management**: Migrations, seeding, backups, and integrity checks
+- **User Management**: Create, modify, activate/deactivate users and manage roles
+- **Data Management**: View and manage exercises, body parts, and workout sessions
+- **Configuration Management**: View and modify application configuration
+- **System Information**: View system details and paths
+
+Run the admin console with:
+
+```bash
+cd src/WorkBeast.AdminConsole
+dotnet run
+```
+
+Default admin credentials (created during seeding):
+- Email: `admin@workbeast.com`
+- Password: `Admin123!`
+
+## API Documentation
+
+The API provides endpoints for:
+
+- **Authentication**: `/api/auth` - Register, login, profile management
+- **Exercises**: `/api/exercises` - CRUD operations for exercises
+- **Body Parts**: `/api/bodyparts` - Manage targeted body parts
+- **Workout Sessions**: `/api/workoutsessions` - Track workouts
+- **Users**: `/api/users` - User management (admin only)
+- **Configuration**: `/api/configuration` - Application configuration
+- **Health**: `/api/health` - Health check endpoint
+
+All endpoints except registration and login require JWT authentication.
+

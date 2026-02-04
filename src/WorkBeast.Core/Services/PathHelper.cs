@@ -10,6 +10,15 @@ public static class PathHelper
     /// </summary>
     public static string GetDatabasePath()
     {
+        var appDataPath = GetAppDataPath();
+        return Path.Combine(appDataPath, "workbeast.db");
+    }
+
+    /// <summary>
+    /// Gets the application data directory path
+    /// </summary>
+    public static string GetAppDataPath()
+    {
         string baseDataPath;
         
         if (OperatingSystem.IsWindows())
@@ -35,6 +44,6 @@ public static class PathHelper
             Directory.CreateDirectory(appDataPath);
         }
 
-        return Path.Combine(appDataPath, "workbeast.db");
+        return appDataPath;
     }
 }
