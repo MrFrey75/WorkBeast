@@ -321,6 +321,4 @@ public class UserCommands
                 break;
             default:
                 AnsiConsole.MarkupLine($"[red]Unknown command: {command}[/]");
-                break;
-        }
-    }
+}

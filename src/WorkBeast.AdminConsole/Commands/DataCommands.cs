@@ -323,6 +323,4 @@ public class DataCommands
                 break;
             default:
                 AnsiConsole.MarkupLine($"[red]Unknown command: {command}[/]");
-                break;
-        }
-    }
+}

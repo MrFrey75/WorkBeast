@@ -210,6 +210,4 @@ public class ConfigurationCommands
                 break;
             default:
                 AnsiConsole.MarkupLine($"[red]Unknown command: {command}[/]");
-                break;
-        }
-    }
+}
